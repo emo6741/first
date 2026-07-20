@@ -1,9 +1,23 @@
+name: Windows RDP Setup
+
+on:
+  workflow_dispatch:
+
+jobs:
+  setup:
+    runs-on: windows-latest
+
+    steps:
+      - name: Create RDP User
+        shell: powershell
+        run: |
           $Password = "RdpSuperStrong2026!@#"
           $SecurePass = ConvertTo-SecureString $Password -AsPlainText -Force
+          
           New-LocalUser -Name "RDP" -Password $SecurePass -AccountNeverExpires
           Add-LocalGroupMember -Group "Administrators" -Member "RDP"
           
-          Write-Host "======================================"
+          Write-Host "------------------------------"
           Write-Host "KULLANICI : RDP"
           Write-Host "ŞİFRE     : RdpSuperStrong2026!@#"
-          Write-Host "======================================"
+          Write-Host "------------------------------"
